@@ -31,7 +31,7 @@ jobs:
     needs: start-runner # required to start the main job when the runner is ready
     runs-on: ${{ needs.start-runner.outputs.label }} # run the job on the newly created runner
     steps:
-        - name: Hello World
+      - name: Hello World
         run: echo 'Hello World!'
 
   stop-runner:
