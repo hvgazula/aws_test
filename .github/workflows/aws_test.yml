@@ -25,6 +25,7 @@ jobs:
           ec2-instance-type: ${{ vars.AWS_INSTANCE_TYPE }}
           subnet-id: ${{ vars.AWS_SUBNET }}
           security-group-id: ${{ vars.AWS_SECURITY_GROUP }}
+          runner-home-dir: /home/ubuntu
 
           
   do-the-job:
