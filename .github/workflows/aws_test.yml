@@ -33,7 +33,9 @@ jobs:
     runs-on: ${{ needs.start-runner.outputs.label }} # run the job on the newly created runner
     steps:
       - name: Install singularity
-        run: echo "hello world"
+        run: |
+          echo "hello world"
+          echo $HOME
 
   stop-runner:
     name: Stop self-hosted EC2 runner
