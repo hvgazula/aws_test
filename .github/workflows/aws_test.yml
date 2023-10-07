@@ -25,7 +25,11 @@ jobs:
           ec2-instance-type: ${{ vars.AWS_INSTANCE_TYPE }}
           subnet-id: ${{ vars.AWS_SUBNET }}
           security-group-id: ${{ vars.AWS_SECURITY_GROUP }}
-          aws-resource-tags: [{"Key": "Name", "Value": "Test-CPU-TM-HG"}]
+          aws-resource-tags: > # optional, requires additional permissions
+            [
+              {"Key": "Name", "Value": "ec2-github-runner"},
+              {"Key": "GitHubRepository", "Value": "${{ github.repository }}"}
+            ]
           
   do-the-job:
     name: Do the job on the runner
