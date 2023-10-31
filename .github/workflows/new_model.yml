@@ -527,6 +527,7 @@ jobs:
           singularity build tm-sim.sif docker://hvgazula/test:tm-sim
           singularity exec --bind /actions-runner/_work/:/output tm-sim.sif echo $PWD
           singularity exec --bind /actions-runner/_work/:/output tm-sim.sif ls
+          singularity exec tm-sim.sif ls
 
       # Load the Docker image 🟢
       #- name: Load Docker image
