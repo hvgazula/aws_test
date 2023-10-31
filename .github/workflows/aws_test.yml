@@ -41,6 +41,12 @@ jobs:
           echo "hello world"
           echo $HOME
 
+      - name: Install singularity
+        run: |
+          wget https://github.com/sylabs/singularity/releases/download/v4.0.0/singularity-ce_4.0.0-focal_amd64.deb
+          sudo apt install ./singularity-ce_4.0.0-focal_amd64.deb -y
+          singularity version
+
   stop-runner:
     name: Stop self-hosted EC2 runner
     needs:
