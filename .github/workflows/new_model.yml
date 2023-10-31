@@ -524,9 +524,9 @@ jobs:
 
           # # singularity build ./${{ needs.create_new_branch.outputs.MODELPATH }}/docker/${{ needs.build-docker.outputs.MODELNAME }}.sif docker://hvgazula/test:tm-sim
           # # singularity exec --nv --bind /actions-runner/_work/${{ github.event.repository.name }}/${{ github.event.repository.name }}:/output ./${{ needs.create_new_branch.outputs.MODELPATH }}/docker/${{ needs.build-docker.outputs.MODELNAME }}.sif ls
-          # singularity build tm-sim.sif docker://hvgazula/test:tm-sim
-          # singularity exec --bind /actions-runner/_work/:/output test:tm-sim.sif echo $PWD
-          # singularity exec --bind /actions-runner/_work/:/output test:tm-sim.sif ls
+          singularity build tm-sim.sif docker://hvgazula/test:tm-sim
+          singularity exec --bind /actions-runner/_work/:/output test:tm-sim.sif echo $PWD
+          singularity exec --bind /actions-runner/_work/:/output test:tm-sim.sif ls
 
       # Load the Docker image 🟢
       #- name: Load Docker image
