@@ -31,27 +31,33 @@ jobs:
     #   env:
     #     GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         
-    # Set up Python 🟢
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: 3.11
-    - name: sintall datalad
-      run: |
-        pip install datalad
-        pip install datalad-osf
-
     # Checkout the repository to the GitHub Actions runner 🟢
     - uses: actions/checkout@v4
       with:
         # ref: ${{ steps.branch.outputs.branchName }}
         fetch-depth: 0
 
-    - name: print siblings
+    # Set up Python 🟢
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.11
+    - name: install datalad
       run: |
+        sudo apt-get install datalad
+        python3 -m pip install datalad-osf
+        pip install requests
         git config --global user.name "test_aws"
         git config --global user.email "test_aws"
+        echo "+++++++++++++++++++++++++++++++++"
         datalad siblings
+        echo "+++++++++++++++++++++++++++++++++" 
+    
+    # - name: print siblings
+    #   run: |
+    #     git config --global user.name "test_aws"
+    #     git config --global user.email "test_aws"
+    #     datalad siblings
         
     # # Scrape the info from the issue 🟢
     # - uses: stefanbuck/github-issue-parser@v3
