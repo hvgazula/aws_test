@@ -49,6 +49,8 @@ jobs:
 
     - name: print siblings
       run: |
+        git config --global user.name "test_aws"
+        git config --global user.email "test_aws"
         datalad siblings
         
     # # Scrape the info from the issue 🟢
