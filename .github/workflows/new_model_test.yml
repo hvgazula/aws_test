@@ -44,7 +44,7 @@ jobs:
         python-version: 3.11
     - name: install datalad
       run: |
-        sudo apt-get install datalad
+        sudo apt-get -y install datalad
         python3 -m pip install datalad-osf
         pip install requests
         git config --global user.name "test_aws"
@@ -468,7 +468,7 @@ jobs:
       # Datalad get the sample dataset
       - name: Get sample dataset
         run: |
-          sudo apt-get install datalad
+          sudo apt-get -y install datalad
           python3 -m pip install datalad-osf
           pip install requests
           git config --global user.name "test_aws"
