@@ -475,6 +475,11 @@ jobs:
       # Datalad get the sample dataset
       - name: Get sample dataset
         run: |
+          echo $HOME
+          echo "+++++"
+          export HOME=/home/ubuntu
+          echo $HOME
+          echo '++++'
           sudo apt-get -y install datalad
           python3 -m pip install datalad-osf
           pip install requests
