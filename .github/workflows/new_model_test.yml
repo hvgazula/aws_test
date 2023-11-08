@@ -434,25 +434,17 @@ jobs:
           haskell: true
           large-packages: true
           docker-images: false
-        
-      # - uses: actions/checkout@v4
-      #   # if: needs.create_new_branch.outputs.BRANCHNAME == ''
-      #   with:
-      #     # ref: issue-${{ github.event.issue.number }}
-      #     fetch-depth: 0
 
-      # # Set up Python 🟢
-      # - name: Set up Python
-      #   uses: actions/setup-python@v4
-      #   with:
-      #     python-version: 3.11
+      # Set up Python 🟢
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
 
-      # # If branchName is empty use issue number, else, use the branchName 🟢
-      # - uses: actions/checkout@v4
-      #   if: needs.create_new_branch.outputs.BRANCHNAME != ''
-      #   with:
-      #       ref: ${{ needs.create_new_branch.outputs.BRANCHNAME }}
-      #       fetch-depth: 0
+      # If branchName is empty use issue number, else, use the branchName 🟢
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Install singularity
         run: |
