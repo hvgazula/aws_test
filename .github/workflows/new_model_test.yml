@@ -435,12 +435,6 @@ jobs:
           large-packages: true
           docker-images: false
 
-      # Set up Python 🟢
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: 3.11
-
       # If branchName is empty use issue number, else, use the branchName 🟢
       - uses: actions/checkout@v4
         with:
