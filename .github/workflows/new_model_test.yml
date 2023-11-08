@@ -435,17 +435,17 @@ jobs:
           large-packages: true
           docker-images: false
         
-      - uses: actions/checkout@v4
-        # if: needs.create_new_branch.outputs.BRANCHNAME == ''
-        with:
-          # ref: issue-${{ github.event.issue.number }}
-          fetch-depth: 0
+      # - uses: actions/checkout@v4
+      #   # if: needs.create_new_branch.outputs.BRANCHNAME == ''
+      #   with:
+      #     # ref: issue-${{ github.event.issue.number }}
+      #     fetch-depth: 0
 
-      # Set up Python 🟢
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: 3.11
+      # # Set up Python 🟢
+      # - name: Set up Python
+      #   uses: actions/setup-python@v4
+      #   with:
+      #     python-version: 3.11
 
       # # If branchName is empty use issue number, else, use the branchName 🟢
       # - uses: actions/checkout@v4
@@ -472,21 +472,21 @@ jobs:
   #     #   run: |
   #     #     singularity build ./${{ needs.create_new_branch.outputs.MODELPATH }}/docker/${{ needs.build-docker.outputs.MODELNAME }}.sif docker-archive://./${{ needs.create_new_branch.outputs.MODELPATH }}/docker/${{ needs.build-docker.outputs.MODELNAME }}.tar
 
-      # Datalad get the sample dataset
-      - name: Get sample dataset
-        run: |
-          sudo apt install python3-pip -y
-          sudo apt-get install datalad -y
-          python3 -m pip install datalad-osf
-          sudo python3 -m pip install datalad-installer
-          datalad-installer --sudo ok git-annex -m datalad/git-annex:release
-          sudo git config --global filter.annex.process "git-annex filter-process"
+      # # Datalad get the sample dataset
+      # - name: Get sample dataset
+      #   run: |
+      #     sudo apt install python3-pip -y
+      #     sudo apt-get install datalad -y
+      #     python3 -m pip install datalad-osf
+      #     sudo python3 -m pip install datalad-installer
+      #     datalad-installer --sudo ok git-annex -m datalad/git-annex:release
+      #     sudo git config --global filter.annex.process "git-annex filter-process"
 
-          git config --system user.name "test_aws"
-          git config --system user.email "test_aws"
+      #     git config --system user.name "test_aws"
+      #     git config --system user.email "test_aws"
 
-          git branch
-          echo ${{ needs.create_new_branch.outputs.BRANCHNAME }}
+      #     git branch
+      #     echo ${{ needs.create_new_branch.outputs.BRANCHNAME }}
   #         datalad get ./${{ needs.create_new_branch.outputs.MODELPATH }}/weights/
   #         datalad get ./${{ needs.create_new_branch.outputs.MODELPATH }}/example-data/
 
