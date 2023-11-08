@@ -1,4 +1,4 @@
-name: Testing datalad push on ec2 
+name: aws_runner
 on: workflow_dispatch
 
 jobs:
@@ -62,10 +62,8 @@ jobs:
           python3 -m pip install datalad-installer datalad-osf
           datalad-installer --sudo ok git-annex -m datalad/git-annex:release
           sudo git config --global filter.annex.process "git-annex filter-process"
-
           git config --system user.name "test_aws"
           git config --system user.email "test_aws"
-
       # If branchName is empty use issue number, else, use the branchName 🟢
       - uses: actions/checkout@v4
         with:
@@ -73,14 +71,16 @@ jobs:
       - run: |
           datalad siblings
           datalad siblings
-
           cd PialNN/pialnn/1.0.0/data
           datalad get .
           find . -name "*.zip" -exec unzip {} \;
-          datalad save -m "pushing unzipped folder" example/
+          mv example example_aws
+          datalad save -m "pushing unzipped folder" example_aws/
           datalad push --to test-aws-storage
           datalad push --to origin
-
+        env:
+          OSF_TOKEN: ${{ secrets.OSF_TOKEN }}
+  
   stop-runner:
     name: Stop self-hosted EC2 runner
     needs: [start-runner, test-model] # required to wait when the main job is done
