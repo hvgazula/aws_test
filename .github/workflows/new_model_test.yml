@@ -74,7 +74,7 @@ jobs:
           datalad siblings
           datalad siblings
 
-          cd PialNN/pialnn/1.0.0/example-data
+          cd PialNN/pialnn/1.0.0/data
           datalad get .
           find . -name "*.zip" -exec unzip {} \;
           datalad save -m "pushing unzipped folder" example/
