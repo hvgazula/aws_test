@@ -414,11 +414,11 @@ jobs:
         # Cleanup steps to free up disk space
       - name: Cleanup disk space for large docker images
         run: |
-              sudo rm -rf /usr/share/dotnet
-              sudo rm -rf /opt/ghc
-              sudo rm -rf "/usr/local/share/boost"
-              sudo rm -rf /opt/hostedtoolcache
-              sudo rm -rf "$AGENT_TOOLSDIRECTORY"
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /opt/ghc
+          sudo rm -rf "/usr/local/share/boost"
+          sudo rm -rf /opt/hostedtoolcache
+          sudo rm -rf "$AGENT_TOOLSDIRECTORY"
             
       - name: Free Disk Space (Ubuntu)
         uses: jlumbroso/free-disk-space@main
