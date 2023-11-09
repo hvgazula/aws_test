@@ -30,8 +30,11 @@ jobs:
     needs: [start-runner] # push-model, build, build-docker, push-weights, start-runner] # required to start the main job when the runner is ready
     runs-on: ${{ needs.start-runner.outputs.label }} # run the job on the newly created runner
     steps:
-      - run: echo "{{secrets.DOCKER_USERNAME}}" 
+      - run: echo ${{ secrets.DOCKER_USERNAME }} 
       - run: pwd
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+
       # - run: export HOME=/home/ubuntu
       # - name: do it
         # run: echo $HOME
