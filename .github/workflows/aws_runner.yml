@@ -80,10 +80,10 @@ jobs:
           cd PialNN/pialnn/1.0.0/data
           datalad get .
           find . -name "*.zip" -exec unzip {} \;
-          mv example example_aws1
+          mv example example_aws2
       - name: datalad push
         run: |
-          datalad save -m "pushing new ßunzipped folder" PialNN/pialnn/1.0.0/data/example_aws1
+          datalad save -m "pushing new unzipped folder" PialNN/pialnn/1.0.0/data/example_aws2
           datalad push -f all --to test-aws-storage
           datalad push --to origin
         env:
