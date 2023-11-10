@@ -65,20 +65,25 @@ jobs:
           python3 -m pip install datalad-installer datalad-osf
           datalad-installer --sudo ok git-annex -m datalad/git-annex:release
           sudo git config --global filter.annex.process "git-annex filter-process"
+      - name: configure git credentials
+        run: |
           git config --system user.name "test_aws"
           git config --system user.email "test_aws"
       # If branchName is empty use issue number, else, use the branchName 🟢
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - run: |
+      - name: datalad get
+        run: |
           datalad siblings
           datalad siblings
           cd PialNN/pialnn/1.0.0/data
           datalad get .
           find . -name "*.zip" -exec unzip {} \;
-          mv example example_aws
-          datalad save -m "pushing unzipped folder" example_aws/
+          mv example example_aws1
+      - name: datalad push
+        run: |
+          datalad save -m "pushing new ßunzipped folder" PialNN/pialnn/1.0.0/data/example_aws1
           datalad push -f all --to test-aws-storage
           datalad push --to origin
         env:
