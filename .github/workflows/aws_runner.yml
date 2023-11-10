@@ -87,6 +87,10 @@ jobs:
     needs: [start-runner, test-model]
     runs-on: ${{ needs.start-runner.outputs.label }}
     steps:
+      - name: configure git credentials
+        run: |
+          git config --system user.name "test_aws"
+          git config --system user.email "test_aws"
       - name: datalad push
         run: |
           datalad save -m "pushing new unzipped folder" PialNN/pialnn/1.0.0/data/example_aws3
