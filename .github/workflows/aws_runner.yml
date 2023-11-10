@@ -80,10 +80,16 @@ jobs:
           cd PialNN/pialnn/1.0.0/data
           datalad get .
           find . -name "*.zip" -exec unzip {} \;
-          mv example example_aws2
+          mv example example_aws3
+  
+  datalad-push:
+    name: running datalad push as a separate job
+    needs: [start-runner, test-model]
+    runs-on: ${{ needs.start-runner.outputs.label }}
+    steps:
       - name: datalad push
         run: |
-          datalad save -m "pushing new unzipped folder" PialNN/pialnn/1.0.0/data/example_aws2
+          datalad save -m "pushing new unzipped folder" PialNN/pialnn/1.0.0/data/example_aws3
           datalad push -f all --to test-aws-storage
           datalad push --to origin
         env:
@@ -91,7 +97,7 @@ jobs:
   
   stop-runner:
     name: Stop self-hosted EC2 runner
-    needs: [start-runner, test-model] # required to wait when the main job is done
+    needs: [start-runner, test-model, datalad-push] # required to wait when the main job is done
     runs-on: ubuntu-latest
     if: ${{ always() }}
     # required to stop the runner even if the error happened in the previous jobs
