@@ -65,10 +65,20 @@ jobs:
           python3 -m pip install datalad-installer datalad-osf
           datalad-installer --sudo ok git-annex -m datalad/git-annex:release
           sudo git config --global filter.annex.process "git-annex filter-process"
-      - name: configure git credentials
+      # - name: configure git credentials
+      #   run: |
+      #     git config --system user.name "test_aws"
+      #     git config --system user.email "test_aws"
+      - name: Set up Git
         run: |
-          git config --system user.name "test_aws"
-          git config --system user.email "test_aws"
+          git config --global user.email "test_aws"
+          git config --global user.name "test_aws"
+          git config --global credential.helper cache
+          git config --global credential.https://github.com.username "${{ secrets.GITHUB_USERNAME }}"
+          git config --global credential.https://github.com.password "${{ secrets.GITHUB_TOKEN }}"
+        env:
+          GITHUB_USERNAME: ${{ secrets.GH_USERNAME }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
       # If branchName is empty use issue number, else, use the branchName 🟢
       - uses: actions/checkout@v4
         with:
@@ -97,6 +107,7 @@ jobs:
       - name: datalad push
         run: |
           datalad save -m "pushing new unzipped folder" PialNN/pialnn/1.0.0/data/example_aws4
+          tree
           datalad push -f all --to test-aws-storage
           datalad push --to origin
         env:
