@@ -71,6 +71,8 @@ jobs:
       #     git config --system user.email "test_aws"
       - name: Set up Git
         run: |
+          export HOME=/home/ubuntu
+          echo $HOME
           git config --global user.email "test_aws"
           git config --global user.name "test_aws"
           git config --global credential.helper cache
