@@ -12,17 +12,6 @@ jobs:
         with:
           python-version: 3.11
 
-      - uses: stefanbuck/github-issue-parser@v3
-        id: issue-parser
-        with:
-          template-path: .github/ISSUE_TEMPLATE/bug-report.yml # optional but recommended
-    
-      - run: cat ${HOME}/issue-parser-result.json
-      
-      - run: echo $FAVORITE_DISH
-        env:
-          FAVORITE_DISH: ${{ steps.issue-parser.outputs.issueparser_favorite_dish }}
-
       # Install datalad 🟢
       - name: Install Datalad
         run: |
@@ -40,8 +29,8 @@ jobs:
           cd PialNN/pialnn/1.0.0/data
           datalad get sample.zip
           find . -name "*.zip" -exec unzip {} \;
-          mv example example_20240206
-          datalad save -m "pushing unzipped folder" example_20240206/
+          mv example example_20240206_1
+          datalad save -m "pushing unzipped folder" example_20240206_1/
           datalad push -f all --to test-aws-storage
           datalad push --to origin
  
