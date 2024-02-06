@@ -61,6 +61,7 @@ jobs:
       # Datalad get the sample dataset
       - name: Get sample dataset
         run: |
+          apt-get update
           apt install unzip datalad python3-pip tree -y
           python3 -m pip install datalad-installer datalad-osf
           datalad-installer --sudo ok git-annex -m datalad/git-annex:release
