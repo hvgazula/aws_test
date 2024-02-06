@@ -79,9 +79,11 @@ jobs:
           datalad siblings
           datalad siblings
           cd PialNN/pialnn/1.0.0/data
+          pwd
           datalad get .
           find . -name "*.zip" -exec unzip {} \;
           mv example example_aws4
+          pwd
       - run: |
           git config user.name
           git config user.email
@@ -104,6 +106,7 @@ jobs:
       - run: tree
       - name: datalad push
         run: |
+          pwd
           datalad save -m "pushing new unzipped folder" PialNN/pialnn/1.0.0/data/example_aws4
           datalad push -f all --to test-aws-storage
           datalad push --to origin
