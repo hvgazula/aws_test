@@ -1,4 +1,4 @@
-name: aws_runner
+name: aws_runner_old
 on: workflow_dispatch
 
 jobs:
@@ -66,22 +66,10 @@ jobs:
           python3 -m pip install datalad-installer datalad-osf
           datalad-installer --sudo ok git-annex -m datalad/git-annex:release
           sudo git config --global filter.annex.process "git-annex filter-process"
-      # - name: configure git credentials
-      #   run: |
-      #     git config --system user.name "test_aws"
-      #     git config --system user.email "test_aws"
-      - name: Set up Git
+      - name: configure git credentials
         run: |
-          export HOME=/home/ubuntu
-          echo $HOME
-          git config --global user.email "test_aws"
-          git config --global user.name "test_aws"
-          git config --global credential.helper cache
-          git config --global credential.https://github.com.username "${{ secrets.GITHUB_USERNAME }}"
-          git config --global credential.https://github.com.password "${{ secrets.GITHUB_TOKEN }}"
-        env:
-          GITHUB_USERNAME: ${{ secrets.GH_USERNAME }}
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          git config --system user.name "test_aws"
+          git config --system user.email "test_aws"
       # If branchName is empty use issue number, else, use the branchName 🟢
       - uses: actions/checkout@v4
         with:
@@ -94,23 +82,39 @@ jobs:
           datalad get .
           find . -name "*.zip" -exec unzip {} \;
           mv example example_aws4
-      - run: |
-          git config user.name
-          git config user.email
+      # - run: |
+      #     git config user.name
+      #     git config user.email
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: example_aws4
+          path: /actions-runner/_work/test-aws/test-aws/PialNN/pialnn/1.0.0/data/example_aws4
   
   datalad-push:
     name: running datalad push as a separate job
     needs: [start-runner, test-model]
     runs-on: ${{ needs.start-runner.outputs.label }}
     steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - run: |
           git config user.name
           git config user.email
-      - run: tree
+      # - name: configure git credentials
+      #   run: |
+      #     git config --system user.name "test_aws"
+      #     git config --system user.email "test_aws"
+      - name: Download artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: example_aws4
+          path: /actions-runner/_work/test-aws/test-aws/PialNN/pialnn/1.0.0/data/example_aws5
       - name: datalad push
         run: |
-          datalad save -m "pushing new unzipped folder" PialNN/pialnn/1.0.0/data/example_aws4
-          tree
+          datalad save -m "pushing new unzipped folder" PialNN/pialnn/1.0.0/data/example_aws5
           datalad push -f all --to test-aws-storage
           datalad push --to origin
         env:

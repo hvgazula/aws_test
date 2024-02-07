@@ -1,4 +1,4 @@
-name: Add a new model
+name: Add a new model (old workflow)
 
 
 # Trigger the workflow on pull request
@@ -51,7 +51,7 @@ jobs:
   #     with:
   #       template-path: .github/ISSUE_TEMPLATE/addModel.yml # optional but recommended
     
-  #   # Scrape info from the form 🟢
+  #   # Scrape info from the form ��
   #   - name: Get the Path
   #     id: get_path
   #     run: echo "path=${{ steps.issue-parser.outputs.issueparser_path }}" >> $GITHUB_OUTPUT
@@ -442,18 +442,18 @@ jobs:
       #     ref: issue-${{ github.event.issue.number }}
 
       # # If branchName is empty use issue number, else, use the branchName 🟢
-      - uses: actions/checkout@v3
-        # if: needs.create_new_branch.outputs.BRANCHNAME != ''
-        # with:
-        #     ref: ${{ needs.create_new_branch.outputs.BRANCHNAME }}
+      # - uses: actions/checkout@v3
+      #   # if: needs.create_new_branch.outputs.BRANCHNAME != ''
+      #   # with:
+      #   #     ref: ${{ needs.create_new_branch.outputs.BRANCHNAME }}
 
       - name: Install singularity
         run: |
+          sudo apt-get update
           wget https://github.com/sylabs/singularity/releases/download/v4.0.0/singularity-ce_4.0.0-focal_amd64.deb
-
           sudo apt install ./singularity-ce_4.0.0-focal_amd64.deb -y
           singularity version
-
+          docker version
       # Build the Docker image 🟢
       #- name: Build Docker image
         #run: |
@@ -515,17 +515,18 @@ jobs:
       - name: Run test command in Singularity
         run: |
           # Parent directory as a bind path in a env variable
-
           #singularity exec --nv --bind /actions-runner,/actions-runner/_work/,/actions-runner/_work/${{ github.event.repository.name }}/${{ github.event.repository.name }}/${{ needs.create_new_branch.outputs.MODELPATH }}/,/actions-runner/_work/${{ github.event.repository.name }}/${{ github.event.repository.name }}/${{ needs.create_new_branch.outputs.MODELPATH }}/docker,/actions-runner/_work/${{ github.event.repository.name }}/${{ github.event.repository.name }}/${{ needs.create_new_branch.outputs.MODELPATH }}/weights,/actions-runner/_work/${{ github.event.repository.name }}/${{ github.event.repository.name }}/${{ needs.create_new_branch.outputs.MODELPATH }}/example-data:/output ./${{ needs.create_new_branch.outputs.MODELPATH }}/docker/${{ needs.build-docker.outputs.MODELNAME }}.sif ${{ needs.create_new_branch.outputs.TESTCOMMAND }}
-
           docker login -u hvgazula -p dckr_pat_VpAuZs0gh1vNrzENg1b1wsAyWYk
-
-          # singularity build ./${{ needs.create_new_branch.outputs.MODELPATH }}/docker/${{ needs.build-docker.outputs.MODELNAME }}.sif docker://hvgazula/test:tm-sim
-          # singularity exec --nv --bind /actions-runner/_work/${{ github.event.repository.name }}/${{ github.event.repository.name }}:/output ./${{ needs.create_new_branch.outputs.MODELPATH }}/docker/${{ needs.build-docker.outputs.MODELNAME }}.sif ls
+          # # singularity build ./${{ needs.create_new_branch.outputs.MODELPATH }}/docker/${{ needs.build-docker.outputs.MODELNAME }}.sif docker://hvgazula/test:tm-sim
+          # # singularity exec --nv --bind /actions-runner/_work/${{ github.event.repository.name }}/${{ github.event.repository.name }}:/output ./${{ needs.create_new_branch.outputs.MODELPATH }}/docker/${{ needs.build-docker.outputs.MODELNAME }}.sif ls
           singularity build tm-sim.sif docker://hvgazula/test:tm-sim
-          singularity exec --bind /actions-runner/_work/:/output test:tm-sim.sif echo $PWD
-          singularity exec --bind /actions-runner/_work/:/output test:tm-sim.sif ls
-
+          singularity exec --bind /actions-runner/_work/:/output tm-sim.sif echo $PWD
+          singularity exec --bind /actions-runner/_work/:/output tm-sim.sif ls
+          singularity exec tm-sim.sif ls
+          echo 'github.workspace === ${{ github.workspace }}'
+          echo "GITHUB_WORKSPACE === $GITHUB_WORKSPACE"
+          echo 'runner.workspace === ${{ runner.workspace }}'
+          echo "RUNNER_WORKSPACE === $RUNNER_WORKSPACE"
       # Load the Docker image 🟢
       #- name: Load Docker image
         #run: |
@@ -553,7 +554,7 @@ jobs:
           # Set the version as an output
           #echo "model_version=$model_version" >> $GITHUB_OUTPUT
       
-      # Push the Docker image to Docker Hub (only if the PR is merged) 🟢
+      # Push the Docker image to Docker Hub (only if the PR is merged) ��
       #- name: Push Docker image
         #run: |
           #docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
@@ -666,3 +667,4 @@ jobs:
 # 11. Stop the self-hosted runner
 # 12. If the model fails, add the failed label and comment
 # 13. If the model succeeds, add the success label and comment
+
