@@ -93,7 +93,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: example_aws4
-          path: example_aws4
+          path: /actions-runner/_work/test-aws/test-aws/PialNN/pialnn/1.0.0/data/example_aws4
   
   datalad-push:
     name: running datalad push as a separate job
