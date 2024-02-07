@@ -110,15 +110,13 @@ jobs:
         run: |
           git config --system user.name "test_aws"
           git config --system user.email "test_aws"
-      - run: tree
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
           name: example_aws4
+          path: /actions-runner/_work/test-aws/test-aws/PialNN/pialnn/1.0.0/data/example_aws4
       - name: datalad push
         run: |
-          pwd
-          tree
           datalad save -m "pushing new unzipped folder" PialNN/pialnn/1.0.0/data/example_aws4
           datalad push -f all --to test-aws-storage
           datalad push --to origin
