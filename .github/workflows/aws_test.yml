@@ -1,4 +1,4 @@
-name: Guide Notebooks Regression - EC2
+name: aws_test
 run-name: ${{ github.ref_name }} - Guide Notebooks Regression - EC2
 on: workflow_dispatch 
 jobs:

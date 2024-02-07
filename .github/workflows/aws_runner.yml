@@ -1,4 +1,4 @@
-name: aws_runner_old
+name: aws_runner
 on: workflow_dispatch
 
 jobs:
@@ -111,10 +111,10 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: example_aws4
-          path: /actions-runner/_work/test-aws/test-aws/PialNN/pialnn/1.0.0/data/example_aws5
+          path: /actions-runner/_work/test-aws/test-aws/PialNN/pialnn/1.0.0/data/example_aws6
       - name: datalad push
         run: |
-          datalad save -m "pushing new unzipped folder" PialNN/pialnn/1.0.0/data/example_aws5
+          datalad save -m "pushing new unzipped folder" PialNN/pialnn/1.0.0/data/example_aws6
           datalad push -f all --to test-aws-storage
           datalad push --to origin
         env:
