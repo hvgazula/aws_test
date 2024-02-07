@@ -88,6 +88,12 @@ jobs:
       - run: |
           git config user.name
           git config user.email
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: example_aws4
+          path: example_aws4
   
   datalad-push:
     name: running datalad push as a separate job
@@ -105,6 +111,10 @@ jobs:
           git config --system user.name "test_aws"
           git config --system user.email "test_aws"
       - run: tree
+      - name: Download artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: example_aws4
       - name: datalad push
         run: |
           pwd
