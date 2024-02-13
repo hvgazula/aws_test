@@ -17,7 +17,6 @@ jobs:
        run: |
         sudo apt-get install datalad
         python3 -m pip install datalad-osf
-        pip install requests
         git config --global user.name "hvgazula"
         git config --global user.email "hvgazula@umich.edu"
 
@@ -30,7 +29,6 @@ jobs:
        env:
          OSF_TOKEN: ${{ secrets.OSF_TOKEN }}
        run: |
-        datalad siblings
-        datalad download-url -m "Added cortex weights" https://neuronets.github.io/cortexode-forked/ckpts.zip
+        datalad download-url -o -m "Added cortex weights" https://neuronets.github.io/cortexode-forked/ckpts.zip
         datalad push --to test-aws-storage
         datalad push --to origin
