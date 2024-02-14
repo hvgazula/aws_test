@@ -32,3 +32,15 @@ jobs:
         datalad download-url -o -m "Added cortex weights" https://neuronets.github.io/cortexode-forked/ckpts.zip
         datalad push --to test-aws-storage
         datalad push --to origin
+
+     - name: Git-annex/Datalad add the sample datasets
+       run: |
+        cd PialNN/pialnn/1.0.0/data
+
+        datalad get sample.zip
+        find . -name "*.zip" -exec unzip {} \;
+        mv example example_test
+        
+        datalad save -m "pushing unzipped folder" example_test/
+        datalad push -f all --to test-aws-storage
+        datalad push --to origin
