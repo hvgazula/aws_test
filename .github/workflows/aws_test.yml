@@ -1,6 +1,6 @@
 name: aws_test
-run-name: ${{ github.ref_name }} - Guide Notebooks Regression - EC2
 on: workflow_dispatch 
+
 jobs:
   start-runner:
     name: Start self-hosted EC2 runner
@@ -38,14 +38,9 @@ jobs:
     steps:
       - name: setting git credentials
         run: |
-          git config --global user.name "hvgazula"
-          git config user.email "hvgazula@umich.edu"
+          git config --system user.name "hvgazula"
+          git config --system user.email "hvgazula@umich.edu"
       
-      # - name: Setting home directory
-      #   run: |
-      #     export HOME=/home/ubuntu
-      #     echo $HOME
-
       - name: Install Datalad
         uses: datalad/datalad-action/install@main
         with:
