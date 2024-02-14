@@ -36,6 +36,10 @@ jobs:
     needs: start-runner # required to start the main job when the runner is ready
     runs-on: ${{ needs.start-runner.outputs.label }} # run the job on the newly created runner
     steps:
+      - name: setting git credentials
+        run: |
+          git config --system http.sslVerify false
+          git config --system user.email "hvgazula@umich.edu"
       - name: Setting home directory
         run: export HOME=/home/ubuntu
       - name: Install singularity
