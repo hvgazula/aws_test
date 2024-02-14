@@ -58,9 +58,10 @@ jobs:
           python-version: 3.11
       
       - name: Install Datalad
-        uses: neuronets/datalad-action/install@main
-        with:
-          pip_install: datalad-osf
+        run: pip install datalad-installer
+#        uses: neuronets/datalad-action/install@main
+#        with:
+#          pip_install: datalad-osf
 
       - name: print datalad version
         run: |
