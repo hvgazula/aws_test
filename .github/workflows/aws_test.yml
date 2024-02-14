@@ -38,9 +38,12 @@ jobs:
     steps:
       - name: setting git credentials
         run: |
-          git config --system user.name "hvgazula"
-          git config --system user.email "hvgazula@umich.edu"
+          git config --global user.name "hvgazula"
+          git config --global user.email "hvgazula@umich.edu"
       
+      - name: Checkout
+        uses: actions/checkout@v3
+
       - name: Install Datalad
         uses: datalad/datalad-action/install@main
         with:
