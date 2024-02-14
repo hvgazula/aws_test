@@ -63,12 +63,10 @@ jobs:
         run:
           |
           pip install datalad-installer
-          pip list
           sudo apt-get update
           sudo apt-get install -y git-annex
           git config --global filter.annex.process "git-annex filter-process"
           pip install datalad
-          datalad --version
 #        uses: neuronets/datalad-action/install@main
 #        with:
 #          pip_install: datalad-osf
