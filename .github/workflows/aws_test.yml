@@ -1,5 +1,5 @@
 name: aws_test
-on: workflow_dispatch 
+on: push
 
 jobs:
   start-runner:
@@ -17,7 +17,7 @@ jobs:
           aws-region: ${{ vars.AWS_REGION }}
       - name: Start EC2 runner
         id: start-ec2-runner
-        uses: machulav/ec2-github-runner@v2
+        uses: esteve/ec2-github-runner@Optionally-execute-runner-as-a-service
         with:
           mode: start
           github-token: ${{ secrets.GH_TOKEN }}
@@ -25,6 +25,7 @@ jobs:
           ec2-instance-type: ${{ vars.AWS_INSTANCE_TYPE }}
           subnet-id: ${{ vars.AWS_SUBNET }}
           security-group-id: ${{ vars.AWS_SECURITY_GROUP }}
+          run-runner-as-user: ubuntu
           aws-resource-tags: > # optional, requires additional permissions
             [
               {"Key": "Name", "Value": "ec2-github-runner"},
@@ -37,18 +38,23 @@ jobs:
     runs-on: ${{ needs.start-runner.outputs.label }} # run the job on the newly created runner
     steps:
       - name: Set $HOME
-        run: echo "HOME=${{ github.workspace }}" >> $GITHUB_ENV
+        run: |
+          echo "HOME=${{ github.workspace }}" >> $GITHUB_ENV
+          echo "PIP_ROOT_USER_ACTION=ignore" >> $GITHUB_ENV
 
       - name: setting git credentials
         run: |
-          git config --system user.name "hvgazula"
-          git config --system user.email "hvgazula@umich.edu"
+          # git config --global user.name "hvgazula"
+          # git config --global user.email "hvgazula@umich.edu"
+
+          echo $HOME
+          whoami
 
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: 3.11
-
+      
       - name: Install Datalad
         uses: datalad/datalad-action/install@main
         with:
