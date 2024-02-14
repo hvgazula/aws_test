@@ -13,7 +13,7 @@ jobs:
          python-version: 3.11
 
      - name: Install datalad and datalad-osf
-       uses: datalad/datalad-action/install@main
+       uses: neuronets/datalad-action/install@main
        with:
          pip_install: datalad-osf 
 
