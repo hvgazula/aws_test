@@ -1,5 +1,7 @@
 name: aws_test
-on: push
+on:
+  push:
+  workflow_dispatch:
 
 jobs:
   start-runner:
