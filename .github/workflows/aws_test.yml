@@ -58,11 +58,14 @@ jobs:
           python-version: 3.11
       
       - name: Install Datalad
+        env:
+          DEBIAN_FRONTEND: noninteractive
         run:
           |
           pip install datalad-installer
           pip list
-          datalad-installer git-annex -m datalad/git-annex:release
+          sudo apt-get update
+          sudo apt-get install -y git-annex
           git config --global filter.annex.process "git-annex filter-process"
           pip install datalad
           datalad --version
