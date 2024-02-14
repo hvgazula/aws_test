@@ -111,10 +111,10 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: example_aws4
-          path: /actions-runner/_work/test-aws/test-aws/PialNN/pialnn/1.0.0/data/example_aws6
+          path: /actions-runner/_work/test-aws/test-aws/PialNN/pialnn/1.0.0/data/example_aws7
       - name: datalad push
         run: |
-          datalad save -m "pushing new unzipped folder" PialNN/pialnn/1.0.0/data/example_aws6
+          datalad save -m "pushing new unzipped folder" PialNN/pialnn/1.0.0/data/example_aws7
           datalad push -f all --to test-aws-storage
           datalad push --to origin
         env:
