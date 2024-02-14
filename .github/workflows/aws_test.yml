@@ -58,14 +58,21 @@ jobs:
           python-version: 3.11
       
       - name: Install Datalad
-        run: pip install datalad-installer
+        run:
+          |
+          pip install datalad-installer
+          pip list
+          datalad-installer git-annex -m datalad/git-annex:release
+          git config --global filter.annex.process "git-annex filter-process"
+          pip install datalad
+          datalad --version
 #        uses: neuronets/datalad-action/install@main
 #        with:
 #          pip_install: datalad-osf
 
-      - name: print datalad version
-        run: |
-          datalad --version
+#      - name: print datalad version
+#        run: |
+#          datalad --version
 
   stop-runner:
     name: Stop self-hosted EC2 runner
