@@ -38,18 +38,19 @@ jobs:
     steps:
       - name: setting git credentials
         run: |
-          # git config --system http.sslVerify false
+          git config --global user.name "hvgazula"
           git config user.email "hvgazula@umich.edu"
-      - name: Setting home directory
-        run: export HOME=/home/ubuntu
-      - name: Install singularity
-        run: |
-          echo "hello world"
-          echo $HOME
-      - name: Checkout
-        uses: actions/checkout@v3
+      
+      # - name: Setting home directory
+      #   run: |
+      #     export HOME=/home/ubuntu
+      #     echo $HOME
+
       - name: Install Datalad
         uses: datalad/datalad-action/install@main
+        with:
+          pip_install: datalad-osf
+
       - name: print datalad version
         run: |
           datalad --version
