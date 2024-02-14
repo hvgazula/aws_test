@@ -12,11 +12,13 @@ jobs:
        with:
          python-version: 3.11
 
-     - name: Install Datalad
-       id: testing
+     - name: Install datalad and datalad-osf
+       uses: datalad/datalad-action/install@main
+       with:
+         pip_install: datalad-osf 
+
+     - name: Setting git credentials
        run: |
-        sudo apt-get install datalad
-        python3 -m pip install datalad-osf
         git config --global user.name "hvgazula"
         git config --global user.email "hvgazula@umich.edu"
 
@@ -39,8 +41,8 @@ jobs:
 
         datalad get sample.zip
         find . -name "*.zip" -exec unzip {} \;
-        mv example example_test
+        mv example example_test1
         
-        datalad save -m "pushing unzipped folder" example_test/
+        datalad save -m "pushing unzipped folder" example_test1/
         datalad push -f all --to test-aws-storage
         datalad push --to origin
