@@ -36,10 +36,17 @@ jobs:
     needs: start-runner # required to start the main job when the runner is ready
     runs-on: ${{ needs.start-runner.outputs.label }} # run the job on the newly created runner
     steps:
+      - name: Setting home directory
+        run: export HOME=/home/ubuntu
       - name: Install singularity
         run: |
           echo "hello world"
           echo $HOME
+      - name: Install Datalad
+        uses: datalad/datalad-action/install@main
+      - name: print datalad version
+        run: |
+          datalad --version
 
   stop-runner:
     name: Stop self-hosted EC2 runner
