@@ -63,8 +63,13 @@ jobs:
           pip_install: datalad-osf
           release: 0.19.6
 
+      - name: Add Python Scripts to PATH
+        run: echo "$HOME/.local/bin" >> $GITHUB_PATH
+
       - name: print datalad version
         run: |
+          pip show datalad
+          python3 -m site --user-site
           datalad --version
 
   stop-runner:
