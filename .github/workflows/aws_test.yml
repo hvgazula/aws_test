@@ -61,6 +61,7 @@ jobs:
         uses: aaronkanzer/datalad-action/install@akanzer-apt-get
         with:
           pip_install: datalad-osf
+          release: 0.19.6
 
       - name: print datalad version
         run: |
