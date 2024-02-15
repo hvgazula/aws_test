@@ -58,7 +58,7 @@ jobs:
           python-version: 3.11
       
       - name: Install Datalad
-        uses: neuronets/datalad-action/install@main
+        uses: aaronkanzer/datalad-action/install@akanzer-apt-get
         with:
           pip_install: datalad-osf
 
