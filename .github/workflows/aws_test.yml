@@ -58,7 +58,7 @@ jobs:
           python-version: 3.11
       
       - name: Install Datalad
-        uses: datalad/datalad-action/install@bf-apt-install
+        uses: datalad/datalad-action/install@main
         with:
           pip_install: datalad-osf
 
