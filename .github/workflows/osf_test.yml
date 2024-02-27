@@ -1,6 +1,5 @@
 name: osf_test
 on: workflow_dispatch
-permissions: write-all
 
 jobs:
    create_new_branch:
@@ -13,7 +12,7 @@ jobs:
          python-version: 3.11
 
      - name: Install datalad and datalad-osf
-       uses: neuronets/datalad-action/install@main
+       uses: datalad/datalad-action/install@main
        with:
          pip_install: datalad-osf 
 
