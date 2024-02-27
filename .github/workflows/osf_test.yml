@@ -6,6 +6,10 @@ jobs:
      runs-on: ubuntu-latest
 
      steps:
+     - name: Print OS Version
+       run: |
+        cat /etc/os-release
+         
      - name: Set up Python
        uses: actions/setup-python@v4
        with:
