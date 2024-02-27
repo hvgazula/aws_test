@@ -1,7 +1,4 @@
 name: new_model
-
-
-# Trigger the workflow on pull request
 on: workflow_dispatch
 
 jobs:
@@ -450,8 +447,8 @@ jobs:
       - name: Install singularity
         run: |
           sudo apt-get update
-          wget https://github.com/sylabs/singularity/releases/download/v4.0.0/singularity-ce_4.0.0-focal_amd64.deb
-          sudo apt install ./singularity-ce_4.0.0-focal_amd64.deb -y
+          wget https://github.com/sylabs/singularity/releases/download/v4.0.0/singularity-ce_4.1.1-focal_amd64.deb
+          sudo apt install ./singularity-ce_4.1.1-focal_amd64.deb -y
           singularity version
           docker version
       # Build the Docker image 🟢
