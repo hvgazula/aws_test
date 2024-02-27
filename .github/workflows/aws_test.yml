@@ -1,7 +1,5 @@
 name: aws_test
-on:
-  push:
-  workflow_dispatch:
+on: workflow_dispatch
 
 jobs:
   start-runner:
@@ -58,7 +56,7 @@ jobs:
           python-version: 3.11
       
       - name: Install Datalad
-        uses: neuronets/datalad-action/install@main
+        uses: datalad/datalad-action/install@main
         with:
           pip_install: datalad-osf
 
