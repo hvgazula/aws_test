@@ -58,9 +58,18 @@ jobs:
           python-version: 3.11
       
       - name: Install Datalad
-        uses: neuronets/datalad-action/install@main
-        with:
-          pip_install: datalad-osf
+        env:
+          DEBIAN_FRONTEND: noninteractive
+        run:
+          |
+          pip install datalad-installer
+          sudo apt-get update
+          sudo apt-get install -y git-annex
+          git config --global filter.annex.process "git-annex filter-process"
+          pip install datalad
+#        uses: neuronets/datalad-action/install@main
+#        with:
+#          pip_install: datalad-osf
 
       - name: print datalad version
         run: |
